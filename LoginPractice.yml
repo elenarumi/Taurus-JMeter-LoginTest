@@ -1,0 +1,32 @@
+execution: 
+- executor: jmeter 
+  concurrency: 10 
+  hold-for: 1m 
+  ramp-up: 30s 
+  scenario: HTTP_simple_example 
+   
+scenarios: 
+  HTTP_simple_example: 
+    headers: 
+      Accept: '*/*' 
+      Origin: 'https://practicetestautomation.com/practice-test-login/' 
+      Content-Type: application/x-www-form-urlencoded
+      Referer: 'https://practicetestautomation.com/practice-test-login/' 
+      Accept-Encoding: 'gzip, deflate, br' 
+    think-time: 1s500ms 
+   
+    retrieve-resources: false 
+    retrieve-resources-regex: ^((?!google|facebook).)*$ 
+    concurrent-pool-size: 6 
+    requests: 
+    - url: 'https://practicetestautomation.com/practice-test-login/' 
+      label: Login Get Page
+      method: GET 
+      follow-redirects: true 
+    - url: 'https://practicetestautomation.com/practice-test-login/'
+      label: Login Post
+      method: POST
+      headers:
+        Content-Type: application/x-www-form-urlencoded
+      body: username=student&password=Password123
+      follow-redirects: true
